@@ -4,25 +4,28 @@ import Navbar from "./components/layout/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import { GithubProvider } from "./context/github/GithubContext";
 
 function App() {
   return (
     // Routes 밖에있는 네브바랑 푸터는 계속 나오고 태그 안에있는건 페이지로 이동
     // 브라우저라우터 안에있는 주소는 Link to 사용가능, 이게 더 빠름
-    <BrowserRouter>
-      <div className="flex flex-col justify-between h-screen">
-        <Navbar title="Github Finder" />
-        <main className="container mx-auto px-3 pb-12">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/notfound" element={<NotFound />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <GithubProvider>
+      <BrowserRouter>
+        <div className="flex flex-col justify-between h-screen">
+          <Navbar title="Github Finder" />
+          <main className="container mx-auto px-3 pb-12">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/notfound" element={<NotFound />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </GithubProvider>
   );
 }
 

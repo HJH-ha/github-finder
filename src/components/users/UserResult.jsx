@@ -1,22 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Spinner from "../layout/Spinner";
+import UserItem from "./UserItem";
+import GithubContext from "../../context/github/GithubContext";
 
 function UserResult() {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const fetchUsers = () => {
-    fetch(`${process.env.REACT_APP_GITHUB_URL}/users`, {
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_GITHUB_TOKEN}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUsers(data);
-        setLoading(false); // 데이터 로딩완료 false
-      })
-      .catch((err) => console.log(err));
-  };
+  const { users, loading, fetchUsers } = useContext(GithubContext);
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -27,7 +15,7 @@ function UserResult() {
     return (
       <div className="grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2">
         {users.map((user) => (
-          <h3>{user.login}</h3>
+          <UserItem key={user.id} user={user} />
         ))}
       </div>
     );
