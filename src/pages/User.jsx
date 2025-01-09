@@ -6,7 +6,7 @@ import { FaCodepen, FaUserFriends, FaUsers } from "react-icons/fa";
 import RepoList from "../components/repos/RepoList";
 
 function User() {
-  const { user, getUser, loading } = useContext(GithubContext);
+  const { user, repos, getUser, loading } = useContext(GithubContext);
 
   const params = useParams();
 
@@ -145,7 +145,7 @@ function User() {
             </div>
           </div>
         </div>
-        <RepoList />
+        <RepoList repos={repos} />
       </div>
     </>
   );
